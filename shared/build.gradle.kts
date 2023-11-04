@@ -29,10 +29,12 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(compose.runtime)
-                implementation(compose.foundation)
+                api(compose.foundation)
                 implementation(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+                api(compose.animation)
+                api("moe.tlaster:precompose:1.5.5")
             }
         }
         val commonTest by getting {
