@@ -1,3 +1,9 @@
+buildscript{
+    dependencies{
+        classpath("dev.icerock.moko:resources-generator:0.23.0")
+    }
+}
+
 plugins {
     //trick: for the same plugin versions in all sub-modules
     kotlin("multiplatform").apply(false)

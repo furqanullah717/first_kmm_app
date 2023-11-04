@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
+    id("dev.icerock.mobile.multiplatform-resources")
     id("org.jetbrains.compose")
 }
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -12,6 +13,12 @@ kotlin {
             kotlinOptions {
                 jvmTarget = "1.8"
             }
+        }
+    }
+    targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget::class.java).all {
+        binaries.withType(org.jetbrains.kotlin.gradle.plugin.mpp.Framework::class.java).all {
+            export("dev.icerock.moko:resources:0.23.0")
+            export("dev.icerock.moko:graphics:0.9.0") // toUIColor here
         }
     }
     
@@ -79,4 +86,14 @@ android {
     defaultConfig {
         minSdk = 24
     }
+}
+dependencies {
+    commonMainApi("dev.icerock.moko:resources:0.23.0")
+    commonMainApi("dev.icerock.moko:resources-compose:0.23.0") // for compose multiplatform
+
+    commonTestImplementation("dev.icerock.moko:resources-test:0.23.0")
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "com.codewithfk.firstappkmm"
 }

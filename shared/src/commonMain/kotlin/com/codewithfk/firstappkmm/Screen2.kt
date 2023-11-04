@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import dev.icerock.moko.resources.compose.stringResource
 import moe.tlaster.precompose.navigation.Navigator
 
 @Composable
@@ -19,7 +20,7 @@ fun Screen2(navigator: Navigator) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Screen 2" , color = Color.White)
+        Text(text = stringResource(MR.strings.screen2) , color = Color.White)
         Button(
             onClick = {
                 navigator.popBackStack()
