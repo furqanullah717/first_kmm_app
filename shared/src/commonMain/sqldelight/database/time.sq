@@ -1,0 +1,45 @@
+CREATE TABLE  sleepEntity (
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+date INTEGER NOT NULL,
+startTime INTEGER NOT NULL,
+endTime INTEGER NOT NULL
+);
+
+getSleepTimeByDate:
+SELECT * FROM sleepEntity WHERE date = ?;
+
+
+getAllTime:
+SELECT *
+FROM sleepEntity
+WHERE  date BETWEEN :startDate AND :endDate
+ORDER BY date DESC;
+
+getAllTimeDesc:
+SELECT *
+FROM sleepEntity
+ORDER BY date DESC;
+
+addSleepTime:
+INSERT OR REPLACE
+INTO sleepEntity(
+    id,
+    date,
+    startTime,
+    endTime
+) VALUES ( ?, ? ,?, ?);
+
+deletSleepEntry:
+DELETE FROM sleepEntity
+WHERE id = :id;
+
+fetchBasedOnDate:
+    SELECT
+        date,
+        (endTime - startTime) / 3600000.0 AS hours
+        -- Divide by 3600000.0 to convert milliseconds to hours
+    FROM
+        sleepEntity
+    WHERE  date BETWEEN :startDate AND :endDate
+    ORDER BY date DESC;
+

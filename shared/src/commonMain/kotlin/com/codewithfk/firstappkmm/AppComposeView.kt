@@ -10,41 +10,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.codewithfk.firstappkmm.di.AppModule
+import com.codewithfk.firstappkmm.sleep_app.model.SleepModel
+import com.codewithfk.firstappkmm.sleep_app.ui.home.HomeScreen
+import kotlinx.coroutines.launch
 import moe.tlaster.precompose.PreComposeApp
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.rememberNavigator
+import kotlin.random.Random
 
 @Composable
-fun AppComposeView() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-    }
+fun AppComposeView(appModule: AppModule) {
 
     PreComposeApp {
         val navController = rememberNavigator()
-        NavHost(modifier = Modifier.fillMaxSize(), navigator = navController,  initialRoute =  "home") {
+        val coroutineScope = rememberCoroutineScope()
+        NavHost(
+            modifier = Modifier.fillMaxSize(),
+            navigator = navController,
+            initialRoute = "home"
+        ) {
             scene("home") {
-                var text by remember { mutableStateOf("") }
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Button(
-                        onClick = {
-                            navController.navigate("screen1")
-                        }
-                    ){
-                        Text("Next")
-                    }
-                }
+                HomeScreen(appModule)
             }
             scene("screen1") {
                 Screen1(navController)
